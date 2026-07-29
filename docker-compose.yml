@@ -24,6 +24,9 @@ services:
       - "5000:5000"
     env_file:
       - ./backend/.env
+    volumes: 
+      - /app/node_modules
+      - ./backend:/app
     environment:
       DB_HOST: postgres
       DB_USER: postgres
@@ -39,6 +42,8 @@ services:
       context: ./PythonBackend
     ports:
       - "8000:8000"
+    volumes:
+      - ./PythonBackend:/app
     depends_on:
       - node-api
 
@@ -47,5 +52,8 @@ services:
       context: ./frontend
     ports:
       - "5173:5173"
+    volumes: 
+      - /app/node_modules
+      - ./frontend:/app
     depends_on:
       - node-api

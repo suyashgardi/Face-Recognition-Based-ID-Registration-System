@@ -5,6 +5,7 @@ const APIURL='http://node-api:5000'
 export default defineConfig({
   plugins: [react()],
   server: {
+    usePolling: true,
     host: '0.0.0.0', 
     port: 5173,
     proxy: {
