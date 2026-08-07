@@ -119,9 +119,11 @@ async def liveness_endpoint(websocket: WebSocket):
                     live_frame = hp.decode_base64_image(data.get("live_photo"))
                     if live_frame is None:
                         continue 
-                    balanced_live = hp.balance_lighting(live_frame)
+                    small_live_frame = cv2.resize(
+                        live_frame, (0, 0), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA
+                    )
+                    balanced_live = hp.balance_lighting(small_live_frame)
                     rgb_live_frame = cv2.cvtColor(balanced_live, cv2.COLOR_BGR2RGB)
-                    
 
                     live_encodings = face_recognition.face_encodings(rgb_live_frame)
                     
